@@ -1,0 +1,57 @@
+SECTION-I
+
+created database sudh(refer Screen shot)
+created table using create command (refer Screen shot)
+inserted values as a tuple (refer Screen shot)
+
+
+3.  select * from EMP where SAL between 2500 and 5000;
+4.  select ENAME from EMP ORDER BY ENAME desc;
+5.  select lower(JOB) from EMP;
+6.  select ENAME, length(ENAME) from EMP;
+7.  select DEPTNO, COUNT(ENAME) from EMP group by DEPTNO;
+8.  select DEPT.DNAME,EMP.ENAME from EMP, DEPT where DEPT.DEPTNO = EMP.DEPTNO;
+9.  select instr(ENAME,'AR') from EMP;
+10. select ENAME, SAL, SAL*0.2 as 'HRA' from EMP;
+
+
+
+
+
+
+
+SECTION-II (2)
+
+create table tempp2
+(
+a float,
+b float,
+c float,
+result varchar(40)
+);
+desc tempp2;
+
+delimiter //
+create FUNC1(a float, b float, c float)
+returns boolean
+deterministic
+begin
+	if a+b>c and b+c>a amnd c+a>b then
+		return true;
+	else
+		return false;
+delimiter //
+create procedure abc(a float, b float, c float)
+begin
+	declare x boolean;
+	set x=FUNC1(a,b,c);
+	if x then
+		insert into tempp2 values(a,b,c,'VALID TRIANGLE');
+	else
+		insert into tempp2 values(a,b,c,'INVALID TRIANGLE');
+	end if;
+	end; //
+	delimiter;
+	call abc(15,10,15);
+	call abc(0,0,0);
+	select * from tempp2;
